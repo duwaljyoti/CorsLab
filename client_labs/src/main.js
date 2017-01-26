@@ -3,11 +3,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import store from './store'
 import App from './App'
+import LoginPage from './pages/LoginPage'
 import DashboardPage from './pages/DashboardPage'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
+
+Vue.component('app', App)
 /* eslint-disable no-new */
 // new Vue({
 //   el: '#app',
@@ -16,13 +20,24 @@ Vue.use(VueResource)
 // })
 
 const routes = [
-  {path: '/', component: App, name: 'home'},
-  {path: '/dashboard', component: DashboardPage, name: 'dashboard', meta: { requiresAuth: true }}
+  {
+    path: '/',
+    component: LoginPage,
+    name: 'home'
+  },
+  {
+    path: '/dashboard',
+    component: DashboardPage,
+    name: 'dashboard',
+    meta: { requiresAuth: true }
+  }
 ]
+
 const router = new VueRouter({
   mode: 'history',
   routes
 })
+
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     const AuthUser = JSON.parse(window.localStorage.getItem('AuthUser'))
@@ -35,5 +50,5 @@ router.beforeEach((to, from, next) => {
   next()
 })
 new Vue({
-  router
+  router, store
 }).$mount('#app')
