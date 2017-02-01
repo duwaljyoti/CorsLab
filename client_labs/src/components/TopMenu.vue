@@ -5,6 +5,13 @@
       ...mapState({
         userStore: state => state.userStore
       })
+    },
+    methods: {
+      handleLogOut () {
+        this.$store.dispatch('clearUserObject')
+        window.localStorage.removeItem('authUser')
+        this.$router.push({name: 'home'})
+      }
     }
   }
 </script>
@@ -47,7 +54,7 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
+        <li><a @click = 'handleLogOut'>Logout</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
