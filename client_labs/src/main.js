@@ -34,7 +34,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'history', // vital so as to have cleaner urls
   routes
 })
 
