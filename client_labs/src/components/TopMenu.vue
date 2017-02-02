@@ -55,6 +55,8 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a @click = 'handleLogOut'>Logout</a></li>
+        <li><router-link :to="{name:'dashboard'}">Dashboard</router-link></li>
+        <li><router-link :to="{name:'chat'}">Chat</router-link></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
