@@ -14,6 +14,7 @@ const mutations = {
     state.currentChatUser = user
   },
   SET_CONVERSATION (state, conversation) {
+    console.log('here from mmutator', conversation)
     state.conversation = conversation
   }
 }
@@ -35,8 +36,10 @@ const actions = {
     let postData = {id: user.id}
     return Vue.http.post(getUserConversationUrl, postData, {headers: getHeader()})
       .then(response => {
+        console.log('from here')
+        console.log(response.data)
         commit('SET_CURRENT_CHAT_USER', user)
-        commit('SET_CONVERSATION', response.data.body)
+        commit('SET_CONVERSATION', response.data)
       })
   }
 }

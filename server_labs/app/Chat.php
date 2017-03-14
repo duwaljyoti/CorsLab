@@ -11,15 +11,14 @@ class Chat extends Model
          'sender_id', 'receiver_id', 'chat', 'read'
     	];
 
-    protected $appends = ['sender_id', 'receiver_id'];
+    protected $appends = ['sender', 'receiver'];
 
 
-    function getSenderIdAttribute() {
-    	
+    function getSenderAttribute() {
       return User::where('id', $this->sender_id)->first();
     }
 
-     function getSenderIdAttribute() {
+     function getReceiverAttribute() {
     	
       return User::where('id', $this->receiver_id)->first();
     }

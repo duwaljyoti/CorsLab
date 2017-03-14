@@ -9,11 +9,12 @@ class ChatController extends Controller
 {
     public function getUserConversationById(Request $request)
     {
-     	$userId = $request->inputt('id');
+     	$userId = $request->input('id');
      	$authUserId = $request->user()->id;
      	$chat = Chat::whereIn('sender_id', [ $authUserId, $userId ])
      				->whereIn('receiver_id', [ $authUserId, $userId ])
-     				->orderBy('created_at', 'desc')
+     				->orderBy('created_at', 'asc')
      				->get();
+     	return $chat;
     }
 }

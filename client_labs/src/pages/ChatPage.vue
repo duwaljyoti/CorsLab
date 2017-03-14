@@ -1,9 +1,11 @@
 <script>
   import {mapState} from 'vuex'
   import ChatUserList from './../components/chat/ChatUserList'
+  import ChatWidget from './../components/chat/ChatWidget'
   export default({
     components: {
-      'user-list': ChatUserList
+      'user-list': ChatUserList,
+      'chat-block': ChatWidget
     },
     computed: {
       ...mapState({
@@ -26,7 +28,7 @@
 	  	<user-list></user-list>
 	  </div>
 	  <div class="col-md-2" id='user-list-col'>
-	  	Chat List
+	  	<chat-block></chat-block>
 	  </div>
   	</section>
   </div>
