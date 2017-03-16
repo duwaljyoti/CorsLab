@@ -1,5 +1,5 @@
 import Vue from 'vue'// so as to make HTTP calls in the method of actions
-import {userListUrl, getHeader, getUserConversationUrl} from './../../config'// getHeader is imported so as to call http requests.
+import {userListUrl, getHeader, getUserConversationUrl, saveChatMessageUrl} from './../../config'// getHeader is imported so as to call http requests.
 const state = {
   userList: {},
   currentChatUser: null,
@@ -16,6 +16,9 @@ const mutations = {
   SET_CONVERSATION (state, conversation) {
     console.log('here from mmutator', conversation)
     state.conversation = conversation
+  },
+  ADD_CHAT_TO_CONVERSATION (state, chat) {
+    state.coversation.pust(chat)
   }
 }
 
@@ -40,6 +43,12 @@ const actions = {
         console.log(response.data)
         commit('SET_CURRENT_CHAT_USER', user)
         commit('SET_CONVERSATION', response.data)
+      })
+  },
+  addNewChatToConversation: ({commit}, postData) => {
+    return Vue.http.post(saveChatMessageUrl, postData, {headers: getHeader()})
+      .then(response => {
+        commit('ADD_CHAT_TO_CONVERSATION', response.data)
       })
   }
 }

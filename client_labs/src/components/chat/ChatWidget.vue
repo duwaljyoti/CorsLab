@@ -19,6 +19,7 @@
   	  <div class="chat-body">
   	  	{{ chat.chat }}
   	  </div>
+      <hr>
   	</div>
   </div>
 </template>
