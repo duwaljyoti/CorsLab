@@ -29,13 +29,10 @@
         const authUser = {}
         this.$http.post(loginUrl, postData)
           .then(response => {
-            // console.log(response)
             if (response.status === 200) {
-              console.log('first response' + response)
               authUser.access_token = response.data.access_token
               authUser.refresh_token = response.data.refresh_token
               window.localStorage.setItem('authUser', JSON.stringify(authUser))
-              // console.log(getHeader())
               this.$http.get(userUrl, {headers: getHeader()})
                 .then(response => {
                   authUser.email = response.body.email
@@ -43,7 +40,6 @@
                   window.localStorage.setItem('authUser', JSON.stringify(authUser))
                   this.$store.dispatch('setUserObject', authUser)
                   this.$router.push({name: 'dashboard'})
-                  console.log(authUser)
                 })
             }
           })

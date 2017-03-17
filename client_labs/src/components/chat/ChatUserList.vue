@@ -1,4 +1,4 @@
-<script>
+  <script>
   import {mapState} from 'vuex'
 
   export default {
@@ -10,6 +10,7 @@
     },
     methods: {
       userActiveStyle (user) {
+        console.log(user.id, this.chatStore.currentChatUser)
         if (this.chatStore.currentChatUser === null) {
           return false
         }
@@ -20,7 +21,6 @@
         return false
       },
       changeChatUser (user) {
-        console.log(user)
         this.$store.dispatch('setCurrentChatUser', user)
       }
     }

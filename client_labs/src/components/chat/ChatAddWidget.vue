@@ -1,9 +1,27 @@
 <script>
   import {mapState} from 'vuex'
+  import Pusher from 'pusher-js'
   export default {
+    created () {
+      // Pusher.logToConsole = true
+      this.pusher = new Pusher('50fb70fb79d6c4446cfc', { // establishing a connection to pusher
+        encrypted: true,
+        cluster: 'mt1'
+      })
+      let that = this
+      this.channel = this.pusher.subscribe('chat_channel') // subscribing to the channel
+      this.channel.bind('chat_saved', function (data) {
+        that.$emit('incoming_chat', data)
+      })
+
+      this.$on('incoming_chat', function (chatMessage) {
+        this.incomingChat(chatMessage)
+      })
+    },
     computed: {
       ...mapState({
-        chatStore: state => state.chatStore
+        chatStore: state => state.chatStore,
+        userStore: state => state.userStore
       })
     },
     data () {
@@ -18,11 +36,26 @@
             'receiver_id': this.chatStore.currentChatUser.id,
             'chat': this.message
           }
-          console.log(postData)
+
           this.$store.dispatch('addNewChatToConversation', postData)
             .then(response => {
               this.message = null
+              let element = document.getElementById('chat-widget-wrapper')
+              element.scrollIntoView(false)
             })
+        }
+      },
+      incomingChat (chatMessage) {
+        if (this.chatStore.currentChatUser.id === chatMessage.message.sender_id) {
+          if (chatMessage.message.receiver.email === this.userStore.authUser.email) {
+            this.$store.dispatch('newIncomingChat', chatMessage.message)
+              .then(response => {
+                let element = document.getElementById('chat-widget-wrapper')
+                element.scrollIntoView(false)
+              })
+          } else {
+            console.log('No Need to Worry')
+          }
         }
       }
     }
