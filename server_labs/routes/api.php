@@ -27,4 +27,11 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
     //chat urls
     Route::post('get-user-conversation', 'ChatController@getUserConversationById');
     Route::post('chat-save', 'ChatController@saveUserChat');
+
+    //private messag urls
+    Route::post('get-private-message-notification', 'PrivateMessageController@getUsernotifications');
+    Route::post('get-private-messages', 'PrivateMessageController@getPrivateMessages');
+    Route::post('get-private-message', 'PrivateMessageController@getPrivateMessagesById');
+    Route::post('get-private-messages-sent', 'PrivateMessageController@getPrivateMessagesSent');
+    Route::post('send-private-message', 'PrivateMessageController@sendPrivateMessage');
 });

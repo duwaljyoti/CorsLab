@@ -1,5 +1,12 @@
+import Vue from 'vue'
+import {
+  userListUrl,
+  getHeader
+   } from './../../config'
+
 const state = {
-  authUser: null
+  authUser: null,
+  users: []
 }
 
 const mutations = {
@@ -8,6 +15,9 @@ const mutations = {
   },
   CLEAR_Auth_USER (state) {
     state.authUser = null
+  },
+  SET_USER_LIST (state, users) {
+    state.users = users
   }
 }
 
@@ -17,6 +27,13 @@ const actions = {
   },
   clearUserObject: ({commit}) => {
     commit('CLEAR_Auth_USER')
+  },
+  getUserList: ({commit}) => {
+    return Vue.http.get(userListUrl, {headers: getHeader()})
+      .then(response => {
+        commit('SET_USER_LIST', response.data.data)
+        return response.data.data
+      })
   }
 }
 

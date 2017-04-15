@@ -10,7 +10,6 @@
     },
     methods: {
       userActiveStyle (user) {
-        console.log(user.id, this.chatStore.currentChatUser)
         if (this.chatStore.currentChatUser === null) {
           return false
         }
