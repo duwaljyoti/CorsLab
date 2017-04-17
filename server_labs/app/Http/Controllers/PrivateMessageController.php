@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\PrivateMessage;
+use LRedis;
 
 class PrivateMessageController extends Controller
 {
@@ -63,6 +64,9 @@ class PrivateMessageController extends Controller
 
  		$pm = PrivateMessage::create($attributes);
  		$data = PrivateMessage::where('id', $pm->id)->first();
+
+ 		$redis = LRedis::connection();
+ 		$redis->publish('message', $data);
 
  		return response(['data' => $data], 201);
  	}   

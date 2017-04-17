@@ -10,6 +10,7 @@ import App from './App'
 import LoginPage from './pages/LoginPage'
 import DashboardPage from './pages/DashboardPage'
 import ChatPage from './pages/ChatPage'
+import VueSocketio from 'vue-socket.io'
 
 import PrivateMessageInbox from './components/private-message/PrivateMessageInbox'
 import PrivateMessageSent from './components/private-message/PrivateMessageSent'
@@ -18,6 +19,7 @@ import PrivateMessageCompose from './components/private-message/PrivateMessageCo
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.use(VueSocketio, 'http://localhost:8890')
 
 Vue.component('multiselect', MultiSelect)
 Vue.component('app', App)

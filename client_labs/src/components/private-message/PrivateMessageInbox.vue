@@ -13,6 +13,13 @@
     },
     created () {
       this.$store.dispatch('setUserMessagesRec')
+    },
+    sockets: {
+      message (data) {
+        let message = JSON.parse(data)
+        console.log('messsage', message)
+        this.$store.dispatch('newMessageNotification', message)
+      }
     }
   }
 </script>
@@ -39,12 +46,12 @@
                 </tr>
               </thead>              
               <tbody>
-                <tr v-for="message in pmStore.messageRec" :class="[message.read == 0 ? 'unread' : 'read']">
-                  <td class="col-sm-3">{{message.sender.name }}</td>
+                <tr v-for="message in pmStore.messagesRec" :class="[message.read == 0 ? 'unread' : 'read']">
+                  <td class="col-sm-3">{{ message.sender.name }}</td>
                   <td class="col-sm-7">
                     <router-link :to="{ name: 'pm-view', params: { id: message.id } }">{{ message.subject }}</router-link>
                   </td>
-                  <td class="col-sm-2">{{message.created_at}}</td>
+                  <td class="col-sm-2">{{ message.created_at }}</td>
                 </tr>
               </tbody>
             </table>            

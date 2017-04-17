@@ -9,7 +9,7 @@ import {
 
 const state = {
   notifications: [],
-  messageRec: [],
+  messagesRec: [],
   messagesSent: [],
   message: {
     subject: '',
@@ -20,7 +20,7 @@ const state = {
 
 const mutations = {
   SET_MESSAGES_REC (state, messagesReceived) {
-    state.messageRec = messagesReceived
+    state.messagesRec = messagesReceived
   },
   SET_MESSAGES_SENT (state, messages) {
     state.messagesSent = messages
@@ -37,6 +37,9 @@ const mutations = {
   },
   SEND_PRIVATE_MESSAGE (state, message) {
     state.messagesSent.push(message)
+  },
+  NEW_PM_NOTIFICATION (state, message) {
+    state.messagesRec.unshift(message)
   }
 }
 
@@ -77,6 +80,9 @@ const actions = {
       commit('SEND_PRIVATE_MESSAGE', response.body.data)
       return response.body.data
     })
+  },
+  newMessageNotification: ({commit}, message) => {
+    commit('NEW_PM_NOTIFICATION', message)
   }
 }
 
